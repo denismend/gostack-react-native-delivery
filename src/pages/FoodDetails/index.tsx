@@ -97,7 +97,7 @@ const FoodDetails: React.FC = () => {
 
   function handleIncrementExtra(id: number): void {
     // Increment extra quantity
-    extras.map(extra => {
+    const newExtras = extras.map(extra => {
       return extra.id === id
         ? {
             ...extra,
@@ -107,11 +107,13 @@ const FoodDetails: React.FC = () => {
             ...extra,
           };
     });
+
+    setExtras(newExtras);
   }
 
   function handleDecrementExtra(id: number): void {
     // Decrement extra quantity
-    extras.map(extra => {
+    const newExtras = extras.map(extra => {
       return extra.id === id && extra.quantity > 1
         ? {
             ...extra,
@@ -121,6 +123,8 @@ const FoodDetails: React.FC = () => {
             ...extra,
           };
     });
+
+    setExtras(newExtras);
   }
 
   function handleIncrementFood(): void {
