@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Feather';
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
 
@@ -16,6 +17,8 @@ import {
   FoodTitle,
   FoodDescription,
   FoodPricing,
+  ExtraContainer,
+  ExtraList,
 } from './styles';
 
 interface Food {
@@ -23,8 +26,16 @@ interface Food {
   name: string;
   description: string;
   price: number;
-  formattedValue: number;
+  formattedValue: string;
   thumbnail_url: string;
+  extras: ExtrasFood[];
+}
+
+interface ExtrasFood {
+  id: number;
+  name: string;
+  value: number;
+  quantity: number;
 }
 
 const Orders: React.FC = () => {
@@ -37,7 +48,7 @@ const Orders: React.FC = () => {
       const data = response.data.map(order => {
         return {
           ...order,
-          formattedPrice: formatValue(order.price),
+          formattedValue: formatValue(order.price),
         };
       });
 
@@ -58,19 +69,26 @@ const Orders: React.FC = () => {
           data={orders}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <Food key={item.id} activeOpacity={0.6}>
-              <FoodImageContainer>
-                <Image
-                  style={{ width: 88, height: 88 }}
-                  source={{ uri: item.thumbnail_url }}
-                />
-              </FoodImageContainer>
-              <FoodContent>
-                <FoodTitle>{item.name}</FoodTitle>
-                <FoodDescription>{item.description}</FoodDescription>
-                <FoodPricing>{item.formattedValue}</FoodPricing>
-              </FoodContent>
-            </Food>
+            <>
+              <Food key={item.id} activeOpacity={0.6}>
+                <FoodImageContainer>
+                  <Image
+                    style={{ width: 88, height: 88 }}
+                    source={{ uri: item.thumbnail_url }}
+                  />
+                </FoodImageContainer>
+                <FoodContent>
+                  <FoodTitle>{item.name}</FoodTitle>
+                  <FoodDescription>{item.description}</FoodDescription>
+                  <FoodPricing>{item.formattedValue}</FoodPricing>
+                </FoodContent>
+              </Food>
+              {/* <ExtraList isExpanded>{item.formattedValue}</ExtraList>
+              <ExtraContainer>
+                <Icon size={15} color="#6C6C80" name="chevron-down" />
+              </ExtraContainer> */}
+              {/* <ExtraList>{item.formattedValue}</ExtraList> */}
+            </>
           )}
         />
       </FoodsContainer>

@@ -67,6 +67,8 @@ const FoodDetails: React.FC = () => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [foodQuantity, setFoodQuantity] = useState(1);
 
+  const [orderValue, setOrderValue] = useState(0);
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -114,7 +116,7 @@ const FoodDetails: React.FC = () => {
   function handleDecrementExtra(id: number): void {
     // Decrement extra quantity
     const newExtras = extras.map(extra => {
-      return extra.id === id && extra.quantity > 1
+      return extra.id === id && extra.quantity > 0
         ? {
             ...extra,
             quantity: extra.quantity - 1,
@@ -149,12 +151,14 @@ const FoodDetails: React.FC = () => {
 
   const cartTotal = useMemo(() => {
     // Calculate cartTotal
+
     const totalExtraPrice = extras.reduce((increment, extra) => {
       return increment + extra.quantity * extra.value;
     }, 0);
 
     const totalFoodPrice = (totalExtraPrice + food.price) * foodQuantity;
 
+    setOrderValue(totalFoodPrice);
     return formatValue(totalFoodPrice);
   }, [extras, food, foodQuantity]);
 
@@ -164,14 +168,15 @@ const FoodDetails: React.FC = () => {
       product_id: food.id,
       name: food.name,
       description: food.description,
-      price: cartTotal,
+      price: orderValue,
       thumbnail_url: food.image_url,
       category: food.category,
       extras,
     };
 
     await api.post('orders', data);
-    navigation.navigate('DashboardStack');
+
+    navigation.goBack();
   }
 
   // Calculate the correct icon name

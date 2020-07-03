@@ -6,8 +6,20 @@ interface Product {
   name: string;
   description: string;
   price: number;
-  formattedValue: number;
+  formattedValue: string;
   thumbnail_url: string;
+  extras: ExtrasFood[];
+}
+
+interface ExtrasFood {
+  id: number;
+  name: string;
+  value: number;
+  quantity: number;
+}
+
+interface ExtraProps {
+  isExpanded: boolean;
 }
 
 export const Container = styled.View`
@@ -51,6 +63,7 @@ export const Food = styled.TouchableOpacity`
 
   background: #f0f0f5;
   border-radius: 8px;
+  border-bottom-right-radius: 0px;
 
   margin-bottom: 16px;
 `;
@@ -58,7 +71,7 @@ export const Food = styled.TouchableOpacity`
 export const FoodImageContainer = styled.View`
   background: #ffb84d;
   border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  /* border-bottom-left-radius: 8px; */
   padding: 16px;
 
   height: 100%;
@@ -102,4 +115,23 @@ export const FoodPricing = styled.Text`
   font-weight: 600;
 
   color: #39b100;
+`;
+
+export const ExtraContainer = styled.View`
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f0f0f5;
+
+  margin-bottom: 16px;
+`;
+
+export const ExtraList = styled.Text<ExtraProps>`
+  font-family: 'Poppins-Regular';
+  font-weight: normal;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+
+  display: ${props => (props.isExpanded ? 'flex' : 'flex')};
 `;
