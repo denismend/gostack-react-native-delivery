@@ -26,11 +26,26 @@
   <a href="#memo-licença">Licença</a>
 </p>
 
+<p align="center">
+  <img src="src/assets/project.gif">
+</p>
+
 ## :rocket: Sobre o desafio
 
 Nesse desafio, você irá desenvolver mais uma aplicação, a GoRestaurant, só que dessa vez a versão mobile para o cliente. Agora você irá praticar o que você aprendeu até agora no React Native junto com TypeScript, para criar um pequeno app para pedidos de comida.
 
 Essa será uma aplicação que irá se conectar a uma Fake API, e exibir e filtrar os pratos de comida da API e permitir a criação de novos pedidos.
+
+### Como Executar
+
+1. Faça o clone do projeto na sua máquina;
+2. Na raiz do projeto, execute o comando `yarn` para baixar as dependências;
+3. Execute `yarn test` para rodar os testes;
+4. Abra o emulador ou dispositivo.
+5. Execute `yarn android` compilar o projeto para dispositivo ou emulador Android ou;
+6. Execute `yarn ios` compilar o projeto para dispositivo ou emulador IOS;
+7. Execute `yarn json-server server.json -p 3333` para executar a Fake api de dados;
+8. Execute `yarn start` para executar o projeto quando já compilado;
 
 ### Template da aplicação
 
