@@ -39,7 +39,15 @@ const AppRoutes: React.FC = () => (
               name="arrow-left"
               size={24}
               color="#FFB84D"
-              onPress={() => navigation.goBack()}
+              onPress={() =>
+                navigation.reset({
+                  routes: [
+                    {
+                      name: 'MainBottom',
+                    },
+                  ],
+                  index: 0,
+                })}
             />
           ),
           headerLeftContainerStyle: {

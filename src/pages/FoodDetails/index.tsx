@@ -90,6 +90,12 @@ const FoodDetails: React.FC = () => {
         };
       });
 
+      api.get(`favorites/${routeParams.id}`).then(responseFavorites => {
+        if (responseFavorites.status === 200) {
+          setIsFavorite(true);
+        }
+      });
+
       setFood(foodsData);
       setExtras(extrasData);
     }
@@ -176,7 +182,14 @@ const FoodDetails: React.FC = () => {
 
     await api.post('orders', data);
 
-    navigation.goBack();
+    navigation.reset({
+      routes: [
+        {
+          name: 'MainBottom',
+        },
+      ],
+      index: 0,
+    });
   }
 
   // Calculate the correct icon name
